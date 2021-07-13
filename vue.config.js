@@ -6,7 +6,7 @@ module.exports = {
   productionSourceMap: false,
   parallel: require('os').cpus().length > 1,
   css: {
-    extract: true
+    extract: process.env.NODE_ENV === 'production'
   },
   configureWebpack: config => {
     config.resolve = {
