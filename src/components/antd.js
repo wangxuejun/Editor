@@ -2,6 +2,8 @@ import 'ant-design-vue/lib/button/style/css'
 import 'ant-design-vue/lib/input/style/css'
 import 'ant-design-vue/lib/layout/style/css'
 import 'ant-design-vue/lib/menu/style/css'
+import 'ant-design-vue/lib/modal/style/css'
+import 'ant-design-vue/lib/message/style/css'
 
 import {
   Button,
@@ -12,7 +14,9 @@ import {
   LayoutContent,
   LayoutFooter,
   Menu,
-  MenuItem
+  MenuItem,
+  Modal,
+  message
 } from 'ant-design-vue'
 
 export default function initAntd(app) {
@@ -25,4 +29,6 @@ export default function initAntd(app) {
   app.component(LayoutFooter.name, LayoutFooter)
   app.component(Menu.name, Menu)
   app.component(MenuItem.name, MenuItem)
+  app.component(Modal.name, Modal)
+  app.component(message.name, message)
 }
