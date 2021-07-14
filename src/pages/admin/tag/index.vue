@@ -1,11 +1,9 @@
 <template>
-  <div class="home-page">
+  <div class="admin-page">
     <div class="pannel">
       <div class="title">
         <h2>标签管理</h2>
-        <a-button type="primary" size="large" @click="addTag()"
-          >添加标签</a-button
-        >
+        <a-button type="primary" size="large" @click="addTag()">添加标签</a-button>
       </div>
       <div class="content tags-content">
         <div
@@ -24,38 +22,6 @@
         </div>
       </div>
     </div>
-    <div class="pannel">
-      <div class="title">
-        <h2>目录管理</h2>
-        <a-button type="primary" size="large" @click="addCatalogue()"
-          >新建目录</a-button
-        >
-      </div>
-      <div class="content catalogue-content">
-        <div
-          class="catalogue-list"
-          :ref="
-            el => {
-              setRef(el, 'catalogueList')
-            }
-          "
-        >
-          <div
-            class="catalogue-item"
-            v-for="(item, index) in catalogue"
-            :key="index"
-            @dblclick="editorCatalogue(index)"
-          >
-            <span v-if="item.statue === 'close'">{{ item.name }}</span>
-            <a-input
-              @blur="confirmCatalogue(index)"
-              v-if="item.statue === 'editor'"
-              v-model:value="item.name"
-            ></a-input>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
   <AddTag
     @handleOk="handleOk"
@@ -67,7 +33,7 @@
   ></AddTag>
 </template>
 <script>
-import { defineComponent, reactive, nextTick } from 'vue'
+import { defineComponent, reactive } from 'vue'
 import AddTag from './components/AddTag'
 import { Modal } from 'ant-design-vue'
 export default defineComponent({
@@ -114,53 +80,23 @@ export default defineComponent({
         tags.push(item)
       }
     }
-    // 使当前目录获取焦点
-    let getCurrentFocus = () => {
-      nextTick().then(() => {
-        myRef.catalogueList.getElementsByTagName('input')[0].focus()
-      })
-    }
-    // 我的目录列表
-    let catalogue = reactive([
-      { name: 'http', statue: 'close' },
-      { name: 'vue', statue: 'close' },
-      { name: '网络协议', statue: 'close' }
-    ])
-    // 添加目录
-    let addCatalogue = () => {
-      catalogue.push({ name: '请编辑目录名', statue: 'editor' })
-      getCurrentFocus()
-    }
-    // 修改目录名称
-    let confirmCatalogue = index => {
-      catalogue[index].statue = 'close'
-    }
-    let editorCatalogue = index => {
-      catalogue[index].statue = 'editor'
-      getCurrentFocus()
-    }
     return {
       tags,
       addTag,
       delTag,
       setRef,
-      handleOk,
-      catalogue,
-      addCatalogue,
-      confirmCatalogue,
-      editorCatalogue
+      handleOk
     }
   }
 })
 </script>
 <style scoped lang="scss">
-.home-page {
+.admin-page {
   width: 100%;
   height: 100%;
-  overflow-y: scroll;
+  overflow: scroll;
 }
 .pannel {
-  margin: 16px 16px 20px;
   box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
   border-radius: 4px;
   .title {
@@ -224,24 +160,6 @@ export default defineComponent({
         &.delete {
           right: 0;
           transform: translateX(100%);
-        }
-      }
-    }
-  }
-  .catalogue-content {
-    .catalogue-list {
-      padding: 20px 10px;
-      background-color: rgb(240, 240, 240);
-      .catalogue-item {
-        display: flex;
-        align-items: center;
-        padding: 0 10px;
-        height: 50px;
-        box-shadow: rgb(0 0 0 / 20%) 0 1px 3px 0;
-        background-color: white;
-        margin-bottom: 10px;
-        &:last-child {
-          margin-bottom: 0;
         }
       }
     }
