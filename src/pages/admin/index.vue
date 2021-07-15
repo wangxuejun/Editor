@@ -11,7 +11,11 @@
           <img src="../../../public/img/logo.png" alt="" />
         </div>
         <a-menu theme="dark" mode="inline" v-model:selectedKeys="selectedKeys">
-          <a-menu-item v-for="(item, index) in navs" :key="index" @click="jump(item)">
+          <a-menu-item
+            v-for="(item, index) in navs"
+            :key="index"
+            @click="jump(item)"
+          >
             <span class="nav-text">{{ item.name }}</span>
           </a-menu-item>
         </a-menu>
@@ -60,6 +64,10 @@ export default defineComponent({
       {
         name: '目录管理',
         path: '/admin/catalogue'
+      },
+      {
+        name: '文章管理',
+        path: '/admin/article'
       }
     ])
 

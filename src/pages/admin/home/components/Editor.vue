@@ -1,6 +1,6 @@
 <template>
   <div class="editor-component">
-    <v-md-editor v-model="text"></v-md-editor>
+    <v-md-editor v-model="text" @save="save"></v-md-editor>
   </div>
 </template>
 <script>
@@ -14,7 +14,12 @@ export default defineComponent({
   },
   created() {},
   setup() {
-    return {}
+    let save = e => {
+      console.log(e)
+    }
+    return {
+      save
+    }
   }
 })
 </script>

@@ -3,7 +3,9 @@
     <div class="pannel">
       <div class="title">
         <h2>目录管理</h2>
-        <a-button type="primary" size="large" @click="addCatalogue()">新建目录</a-button>
+        <a-button type="primary" size="large" @click="addCatalogue()"
+          >新建目录</a-button
+        >
       </div>
       <div class="content catalogue-content">
         <div
@@ -34,7 +36,7 @@
               @click="addTwoCatalogue(item, index)"
               v-if="item.level !== 2"
             ></i>
-            <i class="iconfont icon-delete" @click="deltCatalogue(item, index)"></i>
+            <i class="iconfont icon-delete" @click="deltCatalogue(item)"></i>
           </div>
         </div>
       </div>
@@ -72,9 +74,9 @@ export default {
     }
     // 我的目录列表
     let catalogue = reactive([
-      { name: 'http', statue: 'close' },
-      { name: 'vue', statue: 'close' },
-      { name: '网络协议', statue: 'close' }
+      { id: 1, name: 'http', statue: 'close' },
+      { id: 2, name: 'vue', statue: 'close' },
+      { id: 3, name: '网络协议', statue: 'close' }
     ])
     let list = computed(() => {
       let arr = []
@@ -90,19 +92,24 @@ export default {
     })
     // 添加目录
     let addCatalogue = () => {
-      catalogue.push({ name: '请编辑目录名', statue: 'editor' })
+      // 测试id
+      let id = catalogue.length + 1
+      catalogue.push({ id, name: '请编辑目录名', statue: 'editor' })
       getCurrentFocus()
     }
     // 添加二级目录
-    let addTwoCatalogue = (item, index) => {
+    let addTwoCatalogue = item => {
       if (!item.child) {
         item.child = []
       }
-      item.child.push({ name: '请编辑目录名', statue: 'editor', level: 2 })
-      console.log(index)
+      // 测试id
+      let id = item.id + '-' + (item.child.length + 1)
+      item.child.push({ id, name: '请编辑目录名', statue: 'editor', level: 2 })
+      getCurrentFocus()
     }
     // 修改目录名称
     let confirmCatalogue = index => {
+      console.log('confirmCatalogue')
       catalogue[index].statue = 'close'
     }
     // 编辑目录
@@ -111,11 +118,29 @@ export default {
       getCurrentFocus()
     }
     // 删除目录
-    let deltCatalogue = (item, index) => {
+    let deltCatalogue = item => {
       Modal.confirm({
         content: '确定删除目录【' + item.name + '】？',
         onOk() {
-          catalogue.splice(index, 1)
+          console.log(item.id)
+          for (let i = 0; i < catalogue.length; i++) {
+            if (catalogue[i].id === item.id) {
+              catalogue.splice(i, 1)
+              break
+            } else {
+              let isChild = false
+              if (catalogue[i].child) {
+                for (let j = 0; j < catalogue[i].child.length; j++) {
+                  if (catalogue[i].child[j].id === item.id) {
+                    catalogue[i].child.splice(j, 1)
+                    isChild = true
+                    break
+                  }
+                }
+              }
+              if (isChild) break
+            }
+          }
         }
       })
     }
