@@ -3,7 +3,9 @@
     <div class="pannel">
       <div class="title">
         <h2>标签管理</h2>
-        <a-button type="primary" size="large" @click="addTag()">添加标签</a-button>
+        <a-button type="primary" size="large" @click="addTag()"
+          >添加标签</a-button
+        >
       </div>
       <div class="content tags-content">
         <div
@@ -36,12 +38,21 @@
 import { defineComponent, reactive } from 'vue'
 import AddTag from './components/AddTag'
 import { Modal } from 'ant-design-vue'
+import { apiLoginByOpenId } from '@/axios/api'
 export default defineComponent({
   name: 'Home',
   components: {
     AddTag
   },
-  created() {},
+  created() {
+    console.log(
+      apiLoginByOpenId({
+        url: 'http://192.168.1.105:8081/api/blog/getTagList'
+      }).then(data => {
+        console.log('data', data)
+      })
+    )
+  },
   setup() {
     // ref Dom
     let myRef = reactive({})

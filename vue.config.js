@@ -21,7 +21,8 @@ module.exports = {
     }
     config.externals = {
       vue: 'Vue',
-      'vue-router': 'VueRouter'
+      'vue-router': 'VueRouter',
+      axios: 'axios'
     }
     if (process.env.NODE_ENV === 'production') {
       config.plugins.push(
@@ -42,6 +43,14 @@ module.exports = {
     overlay: {
       warnings: true,
       errors: true
+    },
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+        ws: true,
+        changeOrigin: true,
+        pathRewrite: { '/api': '/' }
+      }
     }
   }
 }
