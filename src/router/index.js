@@ -67,6 +67,33 @@ const routes = [
           import(/* webpackChunkName: "AdminGit" */ '../pages/admin/git/index')
       }
     ]
+  },
+  //
+  {
+    // 后台页面
+    path: '/front',
+    name: 'Front',
+    component: () =>
+      import(/* webpackChunkName: "Front" */ '../pages/front/index'),
+    redirect: '/admin/home',
+    children: [
+      {
+        path: 'list',
+        name: 'FrontList',
+        component: () =>
+          import(
+            /* webpackChunkName: "FrontList" */ '../pages/front/list/index'
+          )
+      },
+      {
+        path: 'detail',
+        name: 'FrontDetail',
+        component: () =>
+          import(
+            /* webpackChunkName: "FrontDetail" */ '../pages/front/detail/index'
+          )
+      }
+    ]
   }
 ]
 

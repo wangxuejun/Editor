@@ -1,12 +1,11 @@
 <template>
-  <div class="editor-component">
-    <v-md-editor v-model="text" @save="save"></v-md-editor>
+  <div class="front-page">
+    <v-md-editor v-model="text" mode="preview"></v-md-editor>
   </div>
 </template>
 <script>
 import { defineComponent } from 'vue'
 export default defineComponent({
-  name: 'Home',
   data() {
     return {
       text:
@@ -70,24 +69,12 @@ export default defineComponent({
         '4. 不同域情况，网页域名 http://192.168.1.105:8080 ，接口请求http://localhost:3000。红色login接口返回set-cookie，但是绿色getTagList接口请求带未能将cookie带上。\n' +
         '![other-origin-cookie.png](https://i.loli.net/2021/07/19/XB8xMdteuwWcLgG.png)'
     }
-  },
-  created() {},
-  setup() {
-    let save = e => {
-      console.log(e)
-    }
-    return {
-      save
-    }
   }
 })
 </script>
-<style scoped lang="scss">
-.editor-component {
-  width: 100%;
-  height: 100%;
-}
-.v-md-editor {
+<style scoed lang="scss">
+.front-page {
+  padding: 0 4px;
   width: 100%;
   height: 100%;
 }
